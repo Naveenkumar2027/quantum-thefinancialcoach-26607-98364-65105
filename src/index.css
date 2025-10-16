@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Light glass theme - Award-level premium palette */
+    --background: 248 100% 99%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100% / 0.7;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 207 89% 64%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 76% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 222 47% 11% / 0.04;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 258 90% 66%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 222 47% 11% / 0.06;
+    --input: 222 47% 11% / 0.08;
+    --ring: 207 89% 64%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 207 89% 64%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 47% 11% / 0.04;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 222 47% 11% / 0.06;
+    --sidebar-ring: 207 89% 64%;
+
+    /* Gradient stops */
+    --gradient-start: 248 100% 99%;
+    --gradient-end: 0 0% 100%;
+    
+    /* Glow colors */
+    --glow-primary: 207 89% 64% / 0.12;
+    --glow-secondary: 142 76% 45% / 0.12;
+    --glow-accent: 258 90% 66% / 0.12;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground tracking-tight;
+    background: 
+      radial-gradient(60% 40% at 50% -10%, hsl(var(--glow-primary)), transparent 60%),
+      linear-gradient(hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Ultra-subtle grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+  }
+
+  /* Floating orbs background effect */
+  body::after {
+    content: "";
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, hsl(var(--glow-primary)) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    opacity: 0.15;
+    z-index: 0;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -45%) scale(1.1); }
+  }
+
+  /* Content above grain */
+  #root {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Utility helpers */
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, #45A7FF 0%, #A78BFA 100%);
+  }
+  
+  .hover-glow {
+    filter: drop-shadow(0 6px 18px rgba(69, 167, 255, 0.25));
+  }
+  
+  .ring-brand {
+    box-shadow: 0 0 0 3px rgba(69, 167, 255, 0.18);
+  }
+}
